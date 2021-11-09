@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import ContactItem from './ContactItem';
+import './ContactList.scss';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onDelete }) => {
   return contacts.length > 0 ? (
     <ul className="nameList">
       {contacts.map(({ id, name, number }) => (
         <li className="nameItem" key={id}>
-          <ContactItem name={name} number={number} id={id} />
+          <ContactItem
+            name={name}
+            number={number}
+            id={id}
+            onDelete={onDelete}
+          />
         </li>
       ))}
     </ul>
@@ -25,6 +31,7 @@ ContactList.propTypes = {
       number: PropTypes.string,
     }).isRequired,
   ),
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;
