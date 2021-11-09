@@ -14,11 +14,14 @@ class App extends Component {
     number: "",
   };
 
-  handleNameChange = (event) => {
-    this.setState({ name: event.currentTarget.value });
+  handleChange = (e) => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
   };
-  handleNumberChange = (event) => {
-    this.setState({ number: event.currentTarget.value });
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
   };
 
   render() {
@@ -29,8 +32,8 @@ class App extends Component {
           <ContactForm
             name={name}
             number={number}
-            handleNumberChange={this.handleNumberChange}
-            handleNameChange={this.handleNameChange}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
           />
         </Section>
         <Section title="Contacts">
