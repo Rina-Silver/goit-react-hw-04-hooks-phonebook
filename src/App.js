@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Section from "components/Section/Section";
-import ContactForm from "components/ContactForm/ContactForm";
-import Filter from "components/Filter/Filter";
-import ContactList from "components/ContactList/ContactList";
+import Section from "components/Section";
+import ContactForm from "components/ContactForm";
+import Filter from "components/Filter";
+import ContactList from "components/ContactList";
 
 import "App.css";
 
