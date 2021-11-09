@@ -5,24 +5,33 @@ import ContactForm from "components/ContactForm";
 import ContactList from "components/ContactList";
 
 import "App.css";
+import { number } from "prop-types";
 
 class App extends Component {
   state = {
     contacts: [],
     name: "",
+    number: "",
   };
 
-  handleInputChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ name: event.target.value });
+  handleNameChange = (event) => {
+    this.setState({ name: event.currentTarget.value });
+  };
+  handleNumberChange = (event) => {
+    this.setState({ number: event.currentTarget.value });
   };
 
   render() {
-    const { contacts, name } = this.state;
+    const { contacts, name, number } = this.state;
     return (
       <div className="Container">
         <Section title="Phonebook">
-          <ContactForm name={name} handleInputChange={this.handleInputChange} />
+          <ContactForm
+            name={name}
+            number={number}
+            handleNumberChange={this.handleNumberChange}
+            handleNameChange={this.handleNameChange}
+          />
         </Section>
         <Section title="Contacts">
           {/* <Filter /> */}
