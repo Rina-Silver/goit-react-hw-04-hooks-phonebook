@@ -5,36 +5,22 @@ import ContactForm from "components/ContactForm";
 import ContactList from "components/ContactList";
 
 import "App.css";
-import { number } from "prop-types";
 
 class App extends Component {
   state = {
     contacts: [],
-    name: "",
-    number: "",
   };
 
-  handleChange = (e) => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
+  formSubmitHandler = (data) => {
+    console.log(data);
   };
 
   render() {
-    const { contacts, name, number } = this.state;
+    const { contacts } = this.state;
     return (
       <div className="Container">
         <Section title="Phonebook">
-          <ContactForm
-            name={name}
-            number={number}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
+          <ContactForm onSubmit={this.formSubmitHandler} />
         </Section>
         <Section title="Contacts">
           {/* <Filter /> */}
