@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Section from "components/Section";
 import ContactForm from "components/ContactForm";
-import Filter from "components/Filter";
+// import Filter from "components/Filter";
 import ContactList from "components/ContactList";
 
 import "App.css";
@@ -12,16 +12,21 @@ class App extends Component {
     name: "",
   };
 
+  handleInputChange = (event) => {
+    console.log(event.target.value);
+    this.setState({ name: event.target.value });
+  };
+
   render() {
-    const { name } = this.state;
+    const { contacts, name } = this.state;
     return (
       <div className="Container">
         <Section title="Phonebook">
-          <ContactForm name={name} />
+          <ContactForm name={name} handleInputChange={this.handleInputChange} />
         </Section>
         <Section title="Contacts">
-          <Filter />
-          <ContactList />
+          {/* <Filter /> */}
+          <ContactList contacts={contacts} />
         </Section>
       </div>
     );
