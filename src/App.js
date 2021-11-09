@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import Section from 'components/Section';
 import ContactForm from 'components/ContactForm';
-// import Filter from "components/Filter";
+import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   state = {
     contacts: [],
+    filter: '',
+  };
+
+  checkNameInBook = name => {
+    const { contacts } = this.state;
+    return contacts.find(contact => contact.name === name);
   };
 
   formSubmitHandler = data => {
+    if (this.checkNameInBook(data.name)) {
+      alert(`${data.name} is already in Contactbook!`);
+      return;
+    }
     console.log(data);
     const newContact = {
       id: uuidv4(),
@@ -22,16 +32,35 @@ class App extends Component {
     }));
   };
 
+  onChangeFilter = e => {
+    const { value } = e.currentTarget;
+    this.setState({ filter: value.trim() });
+  };
+
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter),
+    );
+  };
+
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
+    //    const normalizedFilter = filter.toLowerCase();
+    //    const filteredContacts = contacts.filter(({ name }) =>
+    //      name.toLowerCase().includes(normalizedFilter),
+    //    );
+    const filteredContacts = this.getVisibleContacts();
+
     return (
       <div className="Container">
         <Section title="Phonebook">
           <ContactForm onSubmit={this.formSubmitHandler} />
         </Section>
         <Section title="Contacts">
-          {/* <Filter /> */}
-          <ContactList contacts={contacts} />
+          <Filter filter={filter} filtered={this.onChangeFilter} />
+          <ContactList contacts={filteredContacts} />
         </Section>
       </div>
     );
