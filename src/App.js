@@ -10,6 +10,27 @@ class App extends Component {
     contacts: [],
     filter: '',
   };
+  componentDidMount() {
+    console.log('App componentDidMount');
+
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+    const nextContacts = this.state.contacts;
+    const prevContacts = prevState.contacts;
+
+    if (nextContacts !== prevContacts) {
+      console.log('Обновилось поле contacts, записываю contacts в хранилище');
+      localStorage.setItem('contacts', JSON.stringify(nextContacts));
+    }
+  }
 
   checkNameInBook = name => {
     const { contacts } = this.state;
@@ -21,7 +42,7 @@ class App extends Component {
       alert(`${data.name} is already in Contactbook!`);
       return;
     }
-    console.log(data);
+    // console.log(data);
     const newContact = {
       id: uuidv4(),
       ...data,
